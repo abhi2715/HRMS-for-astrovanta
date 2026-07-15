@@ -92,13 +92,17 @@ class Settings(BaseSettings):
     JWT_REFRESH_TOKEN_EXPIRE_DAYS: int = 7
 
     # ── CORS ─────────────────────────────────────────────────
-    BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:3000"]
+    BACKEND_CORS_ORIGINS: list[str] = ["*"]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v: str | list[str]) -> list[str]:
         if isinstance(v, str):
-            return [i.strip() for i in v.strip("[]").split(",")]
+            raw = v.strip().strip("[]")
+            # Handle wildcard
+            if raw == "*":
+                return ["*"]
+            return [i.strip().strip("'\"") for i in raw.split(",") if i.strip()]
         return v
 
     # ── LLM ──────────────────────────────────────────────────

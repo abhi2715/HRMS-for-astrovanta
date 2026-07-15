@@ -14,12 +14,13 @@ COPY . .
 # Install Python deps
 RUN pip install --no-cache-dir .
 
-# Expose port
-EXPOSE 8000
+# Default port (Render overrides via $PORT env var)
+ENV PORT=8000
+EXPOSE ${PORT}
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-    CMD curl -f http://localhost:8000/health || exit 1
+    CMD curl -f http://localhost:${PORT}/health || exit 1
 
-# Run with uvicorn
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+# Run with uvicorn — use shell form so $PORT is expanded at runtime
+CMD uvicorn src.main:app --host 0.0.0.0 --port ${PORT} --workers 1

@@ -64,7 +64,7 @@ export default function LoginPage() {
 
   const loginAsDemo = async (demoEmail: string) => {
     setEmail(demoEmail);
-    setPassword(demoEmail === "admin@hrcopilot.ai" ? "Admin@123" : "Test@123");
+    setPassword(demoEmail === "rajesh.kumar@hrcopilot.io" ? "admin123" : "demo123");
   };
 
   return (
@@ -248,12 +248,8 @@ export default function LoginPage() {
 
             <div className="mt-4 grid grid-cols-2 gap-2">
               {[
-                { label: "Super Admin", email: "admin@hrcopilot.ai" },
-                { label: "HR Manager", email: "hr@hrcopilot.ai" },
-                { label: "Recruiter", email: "recruiter@hrcopilot.ai" },
-                { label: "Employee", email: "employee@hrcopilot.ai" },
-                { label: "Manager", email: "manager@hrcopilot.ai" },
-                { label: "Payroll", email: "payroll@hrcopilot.ai" },
+                { label: "Super Admin", email: "rajesh.kumar@hrcopilot.io" },
+                { label: "Employee", email: "arjun.sharma@hrcopilot.io" },
               ].map((demo) => (
                 <button
                   key={demo.email}
